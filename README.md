@@ -184,6 +184,16 @@ The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
   but are out of scope for this build.
 
 ---
+## Dashboard
+
+![SA Electricity Demand Dashboard](screenshots/dashboard_overview.png)
+
+The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
+- Daily demand trend line
+- Average demand by half-hour period (shows the daily peak/off-peak curve)
+- Peak demand KPI card
+- Interactive date range slicer
+
 
 ## Author
 
