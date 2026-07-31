@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Date dimension - one row per calendar day present in the demand data"
+    columns:
+      - name: date_key
+        description: "Primary key - the calendar date"
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_region
+    description: "Region dimension - one row per NEM region code"
+    columns:
+      - name: region_key
+        description: "Primary key - the region code (e.g. SA1)"
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_demand
+    description: "Fact table - one row per region + settlement period, with demand in MW"
+    columns:
+      - name: region_key
+        description: "Foreign key to dim_region"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_region')
+              field: region_key
+
+      - name: date_key
+        description: "Foreign key to dim_date"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+
+      - name: period_id
+        description: "Settlement period within the day (1-48)"
+        tests:
+          - not_null
+
+      - name: demand_mw
+        description: "Electricity demand in megawatts"
+        tests:
+          - not_null
