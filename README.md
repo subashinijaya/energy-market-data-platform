@@ -1,4 +1,3 @@
-# energy-market-data-platform
 # Energy Market Data Platform
 
 An end-to-end data platform built on real Australian Energy Market Operator
@@ -107,6 +106,8 @@ AEMO NEMWEB (public data)
 │       └── assert_demand_not_negative.sql
 ├── docs/
 │   └── test_plan.md             # UAT test plan (Phase 4)
+├── screenshots/
+│   └── dashboard_overview.png
 ├── powerbi/
 │   ├── data/                    # CSV exports for Power BI
 │   └── energy_demand_dashboard.pbix
@@ -163,6 +164,8 @@ Done. PASS=11 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=11
 
 ## Dashboard
 
+![SA Electricity Demand Dashboard](screenshots/dashboard_overview.png)
+
 The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
 - Daily demand trend line
 - Average demand by half-hour period (shows the daily peak/off-peak curve)
@@ -184,16 +187,6 @@ The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
   but are out of scope for this build.
 
 ---
-## Dashboard
-
-![SA Electricity Demand Dashboard](screenshots/dashboard_overview.png)
-
-The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
-- Daily demand trend line
-- Average demand by half-hour period (shows the daily peak/off-peak curve)
-- Peak demand KPI card
-- Interactive date range slicer
-
 
 ## Author
 
