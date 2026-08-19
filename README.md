@@ -1,35 +1,22 @@
 # Energy Market Data Platform
 
-An end-to-end data platform built on real Australian Energy Market Operator
-(AEMO) electricity demand data for South Australia (SA1) — covering
-automated extraction, ETL, dimensional modelling with dbt, automated data
-quality testing, and a Power BI analytics dashboard.
+An end-to-end data platform built on real Australian Energy Market Operator (AEMO) electricity demand data for South Australia (SA1) — covering automated extraction, ETL, dimensional modelling with dbt, automated data quality testing, and a Power BI analytics dashboard.
 
-This project was built to demonstrate a complete, production-style data
-pipeline: from raw source data through to a governed, tested star schema
-and a business-ready dashboard.
-
----
+This project was built to demonstrate a complete, production-style data pipeline: from raw source data through to a governed, tested star schema and a business-ready dashboard.
 
 ## Why this project
 
-Built specifically to close skill gaps identified across real job
-applications for Data Analyst / BI Analyst roles in Adelaide, SA:
+Built specifically to close skill gaps identified across real job applications for Data Analyst / BI Analyst roles in Adelaide, SA:
 
-| Gap identified in job applications              | How this project addresses it                          |
-|---------------------------------------------------|----------------------------------------------------------|
-| Dimensional / semantic modelling                  | A proper star schema built with dbt (`dim_date`, `dim_region`, `fact_demand`) |
-| DataOps / version control                         | Incremental Git commit history — one commit per build phase, not a single upload |
-| UAT / testing                                     | 11 automated dbt tests + a full `test_plan.md` UAT document with sign-off |
-| Modern data platform tooling ("Azure", "Fabric")  | dbt Core — free, transparent, code lives directly in the repo |
-| Data governance                                   | `docs/data_dictionary.md` and `docs/test_plan.md` |
+| Gap identified in job applications | How this project addresses it |
+|---|---|
+| Dimensional / semantic modelling | A proper star schema built with dbt (`dim_date`, `dim_region`, `fact_demand`) |
+| DataOps / version control | Incremental Git commit history — one commit per build phase, not a single upload |
+| UAT / testing | 11 automated dbt tests + a full `test_plan.md` UAT document with sign-off |
+| Modern data platform tooling ("Azure", "Fabric") | dbt Core — free, transparent, code lives directly in the repo |
+| Data governance | `docs/data_dictionary.md` and `docs/test_plan.md` |
 
-The domain (electricity market data) was chosen deliberately: it draws on
-prior industry experience at Ceylon Electricity Board, and is directly
-relevant to the SA energy sector (e.g. ElectraNet, the state's electricity
-transmission network operator).
-
----
+The domain (electricity market data) was chosen deliberately: it draws on prior industry experience at Ceylon Electricity Board, and is directly relevant to the SA energy sector (e.g. ElectraNet, the state's electricity transmission network operator).
 
 ## Architecture
 
@@ -58,45 +45,33 @@ AEMO NEMWEB (public data)
   Power BI dashboard  (powerbi/energy_demand_dashboard.pbix)
 ```
 
----
-
 ## Tech stack
 
-| Layer            | Tool                     |
-|-------------------|--------------------------|
-| Extraction        | Python (`requests`, `pandas`) |
-| ETL / warehouse    | Python, SQLite            |
-| Dimensional modelling | dbt Core (SQL)          |
+| Layer | Tool |
+|---|---|
+| Extraction | Python (requests, pandas) |
+| ETL / warehouse | Python, SQLite |
+| Dimensional modelling | dbt Core (SQL) |
 | Data quality testing | dbt tests (schema + custom) |
-| Visualisation      | Power BI                 |
-| Version control    | Git / GitHub              |
+| Visualisation | Power BI |
+| Version control | Git / GitHub |
 
----
 ## 📊 Business Insights
 
 Analysis of 90 days of South Australian electricity demand (AEMO NEMWEB data) revealed:
 
-- **Peak demand runs 26% higher than off-peak levels** (Peak/Off-Peak Ratio: 1.26). 
-  This means infrastructure and staffing decisions should be sized for evening peak load 
-  (approx. 4pm–10pm), not average daily demand, to avoid capacity shortfalls during high-demand periods.
+- **Peak demand runs 26% higher than off-peak levels** (Peak/Off-Peak Ratio: 1.26). This means infrastructure and staffing decisions should be sized for evening peak load (approx. 4pm–10pm), not average daily demand, to avoid capacity shortfalls during high-demand periods.
+- **Maximum recorded demand over the period: 2,371 MW**, providing a real benchmark for capacity planning and stress-testing grid resilience.
+- **Day-over-day demand can shift by ~1.6%**, showing short-term volatility that planners need to account for beyond just seasonal trends.
 
-- **Maximum recorded demand over the period: 2,371 MW**, providing a real benchmark for 
-  capacity planning and stress-testing grid resilience.
-
-- **Day-over-day demand can shift by ~1.6%**, showing short-term volatility that planners 
-  need to account for beyond just seasonal trends.
-
-These findings mirror the kind of capacity-planning insights used by network operators 
-like ElectraNet when forecasting infrastructure investment needs.
+These findings mirror the kind of capacity-planning insights used by network operators like ElectraNet when forecasting infrastructure investment needs.
 
 ## Data source
 
-- **Source:** [AEMO NEMWEB](https://nemweb.com.au/Reports/Current/HistDemand/) — publicly available historical electricity demand data
+- **Source:** AEMO NEMWEB — publicly available historical electricity demand data
 - **Region:** SA1 (South Australia)
 - **Granularity:** Half-hourly settlement periods (48 per day)
-- **Scope in this build:** 7 days of history (24–30 July 2026), designed to scale to any date range by changing one config value in the extraction script
-
----
+- **Scope in this build:** 90 days of history (May–Aug 2026), 2,880 half-hourly records, designed to scale to any date range by changing one config value in the extraction script
 
 ## Project structure
 
@@ -123,40 +98,38 @@ like ElectraNet when forecasting infrastructure investment needs.
 ├── docs/
 │   └── test_plan.md             # UAT test plan (Phase 4)
 ├── screenshots/
-│   └── dashboard_overview.png
+│   └── Enhanced_Dashboard_overview.png
 ├── powerbi/
 │   ├── data/                    # CSV exports for Power BI
 │   └── energy_demand_dashboard.pbix
 └── README.md
 ```
 
----
-
 ## How to run this project
 
 **1. Extract raw AEMO data**
-```bash
+```
 python pipeline/extract_aemo.py
 ```
 
 **2. Clean and load into the SQLite warehouse**
-```bash
+```
 python pipeline/load_to_db.py
 ```
 
 **3. Build the dbt star schema**
-```bash
+```
 cd energy_market
 dbt run
 ```
 
 **4. Run data quality tests**
-```bash
+```
 dbt test
 ```
 
 **5. Export tables for Power BI**
-```bash
+```
 cd ..
 python pipeline/export_for_powerbi.py
 ```
@@ -164,47 +137,36 @@ python pipeline/export_for_powerbi.py
 **6. Open the dashboard**
 Open `powerbi/energy_demand_dashboard.pbix` in Power BI Desktop.
 
----
-
 ## Data quality testing
 
-11 automated tests cover completeness, uniqueness, referential integrity,
-and a custom business rule (demand can never be negative). Full detail
-and sign-off is documented in [`docs/test_plan.md`](docs/test_plan.md).
+11 automated tests cover completeness, uniqueness, referential integrity, and a custom business rule (demand can never be negative). Full detail and sign-off is documented in `docs/test_plan.md`.
 
 ```
 Done. PASS=11 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=11
 ```
 
----
-
 ## Dashboard
+
 ![SA Electricity Demand Dashboard](screenshots/Enhanced_Dashboard_overview.png)
 
 The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
-- Daily demand trend line
-- Average demand by half-hour period (shows the daily peak/off-peak curve)
-- Peak demand KPI card
-- Interactive date range slicer
 
----
+- Daily demand trend line (90-day view)
+- Average demand by half-hour period (shows the daily peak/off-peak curve)
+- Peak demand KPI card (2,371 MW)
+- **Peak Off-Peak Ratio measure (DAX)** — 1.26
+- **Day-over-Day % Change measure (DAX)** — 1.59%
+- Interactive date range slicer
 
 ## Honest scope notes
 
-- This build covers a 7-day window of SA1 data to demonstrate the full
-  pipeline end-to-end. The extraction script's `DAYS_TO_PULL` setting can
-  be increased to pull a longer history with no other code changes.
-- `dim_region` currently contains a single region (SA1). The model is
-  written generically so it will automatically populate additional NEM
-  regions (NSW1, VIC1, QLD1, TAS1) if the extraction script is pointed at
-  more regions in future.
-- Price data and generation-by-fuel-type data are natural next additions
-  but are out of scope for this build.
-
----
+- This build covers a 90-day window of SA1 data (2,880 half-hourly records) to demonstrate the full pipeline end-to-end at meaningful scale. The extraction script's `DAYS_TO_PULL` setting can be increased further to pull a longer history with no other code changes.
+- `dim_region` currently contains a single region (SA1). The model is written generically so it will automatically populate additional NEM regions (NSW1, VIC1, QLD1, TAS1) if the extraction script is pointed at more regions in future.
+- Price data and generation-by-fuel-type data are natural next additions but are out of scope for this build.
 
 ## Author
 
 **Anne Subashini Sritharan**
 Data Analyst — Adelaide, SA
 [GitHub](https://github.com/subashinijaya)
+
