@@ -72,6 +72,22 @@ AEMO NEMWEB (public data)
 | Version control    | Git / GitHub              |
 
 ---
+## 📊 Business Insights
+
+Analysis of 90 days of South Australian electricity demand (AEMO NEMWEB data) revealed:
+
+- **Peak demand runs 26% higher than off-peak levels** (Peak/Off-Peak Ratio: 1.26). 
+  This means infrastructure and staffing decisions should be sized for evening peak load 
+  (approx. 4pm–10pm), not average daily demand, to avoid capacity shortfalls during high-demand periods.
+
+- **Maximum recorded demand over the period: 2,371 MW**, providing a real benchmark for 
+  capacity planning and stress-testing grid resilience.
+
+- **Day-over-day demand can shift by ~1.6%**, showing short-term volatility that planners 
+  need to account for beyond just seasonal trends.
+
+These findings mirror the kind of capacity-planning insights used by network operators 
+like ElectraNet when forecasting infrastructure investment needs.
 
 ## Data source
 
