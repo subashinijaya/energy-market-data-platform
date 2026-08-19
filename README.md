@@ -181,6 +181,7 @@ Done. PASS=11 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=11
 ## Dashboard
 
 ![SA Electricity Demand Dashboard](screenshots/dashboard_overview.png)
+![SA Electricity Demand Dashboard](screenshots/Enhanced Dashboard_overview.png)
 
 The Power BI dashboard (`powerbi/energy_demand_dashboard.pbix`) includes:
 - Daily demand trend line
