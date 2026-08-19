@@ -20,7 +20,7 @@ import os
 BASE_URL = "https://nemweb.com.au/Reports/Current/HistDemand/"
 OUTPUT_FOLDER = "data/raw"
 REGION_FILTER = "SA1"        # South Australia only
-DAYS_TO_PULL = 7             # start small, scale up later
+DAYS_TO_PULL = 90
 
 # ---------- SETUP ----------
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
